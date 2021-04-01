@@ -49,7 +49,6 @@ public class GamePanel extends JPanel implements KeyListener {
         timer.scheduleAtFixedRate(new TimerTask() {
             @Override
             public void run() {
-                System.out.println(accepted);
                 if (accepted) moveBall();
                 repaint();
                 if (end){

@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.net.InetAddress;
 import java.net.ServerSocket;
 import java.net.Socket;
+import java.util.Scanner;
 
 public class Connection implements Runnable{
     public GamePanel gamePanel;
@@ -14,6 +15,7 @@ public class Connection implements Runnable{
 
     public int port = 22222;
     public String ip = "localhost";
+    public Scanner scan = new Scanner(System.in);
 
     public ServerSocket serverSocket;
     public DataOutputStream dos;
@@ -22,6 +24,11 @@ public class Connection implements Runnable{
 
     Connection(GamePanel gamePanel){
         this.gamePanel = gamePanel;
+
+        System.out.println("Input the ip address of the second player: ");
+        ip = scan.nextLine();
+        System.out.println("Input the port (1024-65535) of the second player: ");
+        port = scan.nextInt();
 
         if (!connect()){
             initializeServer();
@@ -38,7 +45,6 @@ public class Connection implements Runnable{
             dis = new DataInputStream(socket.getInputStream());
             gamePanel.setAccepted(true);
             accepted = true;
-            System.out.println("No wysłałem");
         } catch (IOException e){
             System.out.println("Cant find ip:port, strarting server");
             return false;
@@ -63,7 +69,6 @@ public class Connection implements Runnable{
             dos = new DataOutputStream(socket.getOutputStream());
             gamePanel.setAccepted(true);
             accepted = true;
-            System.out.println("No wysłałem");
         } catch (Exception e){
             e.printStackTrace();
         }
@@ -83,7 +88,6 @@ public class Connection implements Runnable{
 
             if (dis.available() > 0) {
                 received = dis.readUTF();
-                System.out.println(received);
                 if (received.equals(" ")){
                     gamePanel.setReadyOpponent(true);
                 } else{

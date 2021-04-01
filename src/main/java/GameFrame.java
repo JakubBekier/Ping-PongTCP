@@ -1,13 +1,11 @@
 import javax.swing.*;
-import java.awt.event.KeyEvent;
-import java.awt.event.KeyListener;
 
 public class GameFrame extends JFrame {
     GameFrame(){
         super();
         GamePanel gamePanel = new GamePanel();
 
-        this.setTitle("No czesc");
+        this.setTitle("Ping Pong");
         this.add(gamePanel);
         this.pack();
         this.setLocationRelativeTo(null);
